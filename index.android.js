@@ -14,34 +14,28 @@ import {
 
 import Video from 'react-native-video';
 
+var ScrollableTabView = require('react-native-scrollable-tab-view');
+
 export default class BandNewsNative extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-        <Video source={{ uri: "http://www.bandnewsfm.com.br/audio/2016/12/SIMAO_2012.mp3" }}   // Can be a URL or a local file.
-          ref={(ref) => {
-            this.player = ref
-          } }                             // Store reference
-          rate={1.0}                     // 0 is paused, 1 is normal.
-          volume={1.0}                   // 0 is muted, 1 is normal.
-          muted={false}                  // Mutes the audio entirely.
-          paused={false}                 // Pauses playback entirely.
-          resizeMode="contain"             // Fill the whole screen at aspect ratio.
-          repeat={true}                  // Repeat forever.
-          playInBackground={true}       // Audio continues to play when app entering background.
-        // Callback when video cannot be loaded
-          style={styles.backgroundVideo} />
-      </View>
+      <ScrollableTabView style={styles.container}>
+        <View tabLabel='Hello'>
+          <Text style={styles.welcome}>
+            Welcome to React Native!
+          </Text>
+        </View>
+        <View tabLabel='Lero'>
+          <Text style={styles.welcome}>
+            Welcome to React Native!
+          </Text>
+        </View>
+        <View tabLabel='Ok'>
+          <Text style={styles.welcome}>
+            Welcome to React Native!
+          </Text>
+        </View>
+      </ScrollableTabView>
     );
   }
 }
@@ -74,3 +68,17 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('BandNewsNative', () => BandNewsNative);
+
+        // <Video source={{ uri: "http://www.bandnewsfm.com.br/audio/2016/12/SIMAO_2012.mp3" }}   // Can be a URL or a local file.
+        //   ref={(ref) => {
+        //     this.player = ref
+        //   } }                             // Store reference
+        //   rate={1.0}                     // 0 is paused, 1 is normal.
+        //   volume={1.0}                   // 0 is muted, 1 is normal.
+        //   muted={false}                  // Mutes the audio entirely.
+        //   paused={false}                 // Pauses playback entirely.
+        //   resizeMode="contain"             // Fill the whole screen at aspect ratio.
+        //   repeat={true}                  // Repeat forever.
+        //   playInBackground={true}       // Audio continues to play when app entering background.
+        // // Callback when video cannot be loaded
+        //   style={styles.backgroundVideo} />

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native'
 import Video from 'react-native-video'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-import { Columnists } from 'components/columnists.js'
-import { Audio } from 'components/audio.js'
-import { Podcasts } from 'components/podcasts.js'
+import { Columnists } from 'tabs/columnists.js'
+import { Audio } from 'tabs/audio.js'
+import { Podcasts } from 'tabs/podcasts.js'
 
 export class Index extends Component {
+
 	constructor() {
 		super()
 		this.state = {
@@ -39,9 +40,7 @@ export class Index extends Component {
 				audio: self.state.selectedAudio
 			}
 		}
-
 	}
-
 
 	render() {
 		const {columnistProps, podcastsProps, audioProps} = this.childrenProps()
@@ -61,6 +60,3 @@ const styles = StyleSheet.create({
 		flex: 1
 	}
 });
-
-				
-				// <Audio tabLabel="Audio" {...audioProps} />

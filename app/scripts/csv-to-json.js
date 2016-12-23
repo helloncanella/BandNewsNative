@@ -18,7 +18,7 @@ class CsvToJson {
         return {
             name,
             image: replaceCode(imageUrl, code),
-            podcast: replaceCode(podcastUrl, code)
+            xml: replaceCode(podcastUrl, code)
         }
     }
 

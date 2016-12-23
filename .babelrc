@@ -7,8 +7,8 @@
             "module-alias",
             [
                 {
-                    "src": "./app/components",
-                    "expose": "components"
+                    "src": "./app/tabs",
+                    "expose": "tabs"
                 },
                 {
                     "src": "./app",

@@ -11,10 +11,10 @@ export class Podcasts extends Component {
 
     componentDidMount(){
         var self = this
-        fetch('https://proxy-helloncanella.c9users.io')
-            .then((response)=>response.text())
-            .then((text)=>console.log(text))
-            .catch((error)=>console.error(error))
+        // fetch('https://proxy-helloncanella.c9users.io')
+        //     .then((response)=>response.text())
+        //     .then((text)=>console.log(text))
+        //     .catch((error)=>console.error(error))
     }
 
     render() {

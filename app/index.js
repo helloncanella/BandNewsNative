@@ -22,6 +22,7 @@ export class Index extends Component {
 	// }
 
 	selectColumnist(name) {
+		console.log(name)
 		this.setState({ selectedColumnist: name })
 	}
 

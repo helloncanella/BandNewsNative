@@ -8,12 +8,20 @@ const columnistsInfo = require('data/columnists.json').columnists
 export class Columnists extends Component {
 
     renderRow(data) {
+        
         const {name, podcast, image} = data
             , {selectColumnist} = this.props
             , {thumbnail, row, container} = styles
 
+        const touchProps = {
+            style: container, 
+            onPress: ()=>selectColumnist(name), 
+            underlayColor:"transparent", 
+            activeOpacity: 0.7
+        }
+
         const Row = () => (
-            <TouchableHighlight style={container} onPress={()=>selectColumnist(name)} underlayColor="white" activeOpacity={0.7}>
+            <TouchableHighlight {...touchProps} >
                 <View style={row} onPress={selectColumnist}>
                     <Image style={thumbnail} source={{ uri: image }} />
                     <Text>{name}</Text>

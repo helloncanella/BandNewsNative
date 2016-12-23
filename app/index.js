@@ -11,23 +11,17 @@ export class Index extends Component {
 		super()
 		this.state = {
 			selectedAudio: '',
-			selectedColumnist: ''
+			selectedColumnist: '',
+			tab: 0
 		}
 	}
 
-	// shouldComponentUpdate(){
-	// 	let shouldUpdate = false
-
-	// 	return shouldUpdate
-	// }
-
 	selectColumnist(name) {
-		console.log(name)
-		this.setState({ selectedColumnist: name })
+		this.setState({ selectedColumnist: name, tab: 1})
 	}
 
 	selectAudio(url) {
-		this.setState({ selectedAudio: url })
+		this.setState({ selectedAudio: url, tab: 2 })
 	}
 
 	childrenProps() {
@@ -48,12 +42,15 @@ export class Index extends Component {
 
 	}
 
+
 	render() {
 		const {columnistProps, podcastsProps, audioProps} = this.childrenProps()
 
 		return (
-			<ScrollableTabView style={styles.container}>
+			<ScrollableTabView style={styles.container} page={this.state.tab}>
 				<Columnists tabLabel="Colunistas" {...columnistProps} />
+				<Podcasts tabLabel="Podcasts" {...podcastsProps} />
+				<Audio tabLabel="Audio" {...audioProps} />
 			</ScrollableTabView>
 		);
 	}
@@ -65,5 +62,5 @@ const styles = StyleSheet.create({
 	}
 });
 
-				// <Podcasts tabLabel="Podcasts" {...podcastsProps} />
+				
 				// <Audio tabLabel="Audio" {...audioProps} />

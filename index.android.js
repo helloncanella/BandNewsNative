@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
+global.Buffer = global.Buffer || require('buffer').Buffer;
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { Index } from 'app/index.js'

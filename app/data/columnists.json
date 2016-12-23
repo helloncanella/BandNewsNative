@@ -1,0 +1,199 @@
+{
+    "columnists": [
+        {
+            "name": "Ricardo Boechat",
+            "image": "http://imagem.band.com.br/COL_FT1_266.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_266.xml"
+        },
+        {
+            "name": "José Simão",
+            "image": "http://imagem.band.com.br/COL_FT1_13.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_13.xml"
+        },
+        {
+            "name": "Mônica Bergamo",
+            "image": "http://imagem.band.com.br/COL_FT1_82.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_82.xml"
+        },
+        {
+            "name": "Dora Kramer",
+            "image": "http://imagem.band.com.br/COL_FT1_14.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_14.xml"
+        },
+        {
+            "name": "Leandro Karnal",
+            "image": "http://imagem.band.com.br/COL_FT1_293.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_293.xml"
+        },
+        {
+            "name": "Luis Paulo Rosenberg",
+            "image": "http://imagem.band.com.br/COL_FT1_279.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_279.xml"
+        },
+        {
+            "name": "Luiz Carlos Mendonça de Barros",
+            "image": "http://imagem.band.com.br/COL_FT1_43.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_43.xml"
+        },
+        {
+            "name": "Sérgio Xavier",
+            "image": "http://imagem.band.com.br/COL_FT1_64.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_64.xml"
+        },
+        {
+            "name": "Eduardo Oinegue",
+            "image": "http://imagem.band.com.br/COL_FT1_298.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_298.xml"
+        },
+        {
+            "name": "Milton Neves",
+            "image": "http://imagem.band.com.br/COL_FT1_42.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_42.xml"
+        },
+        {
+            "name": "Ricardo Freire",
+            "image": "http://imagem.band.com.br/COL_FT1_140.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_140.xml"
+        },
+        {
+            "name": "Tatiana Vasconcellos",
+            "image": "http://imagem.band.com.br/COL_FT1_284.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_284.xml"
+        },
+        {
+            "name": "João Marcelo Bôscolli",
+            "image": "http://imagem.band.com.br/COL_FT1_277.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_277.xml"
+        },
+        {
+            "name": "Miguel Icassatti",
+            "image": "http://imagem.band.com.br/COL_FT1_296.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_296.xml"
+        },
+        {
+            "name": "Manu Karsten",
+            "image": "http://imagem.band.com.br/COL_FT1_276.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_276.xml"
+        },
+        {
+            "name": "Carol Costa",
+            "image": "http://imagem.band.com.br/COL_FT1_253.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_253.xml"
+        },
+        {
+            "name": "Sérgio Patrick",
+            "image": "http://imagem.band.com.br/COL_FT1_291.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_291.xml"
+        },
+        {
+            "name": "Rosely Saião",
+            "image": "http://imagem.band.com.br/COL_FT1_23.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_23.xml"
+        },
+        {
+            "name": "Camila Hirsh e Renata Veneri",
+            "image": "http://imagem.band.com.br/COL_FT1_70.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_70.xml"
+        },
+        {
+            "name": "Gil Giardelli",
+            "image": "http://imagem.band.com.br/COL_FT1_280.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_280.xml"
+        },
+        {
+            "name": "Vicky Bloch",
+            "image": "http://imagem.band.com.br/COL_FT1_90.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_90.xml"
+        },
+        {
+            "name": "István Wessel",
+            "image": "http://imagem.band.com.br/COL_FT1_18.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_18.xml"
+        },
+        {
+            "name": "Paulo Olzon",
+            "image": "http://imagem.band.com.br/COL_FT1_18.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_18.xml"
+        },
+        {
+            "name": "Alexandra Corvo",
+            "image": "http://imagem.band.com.br/COL_FT1_285.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_285.xml"
+        },
+        {
+            "name": "Vivi Favery",
+            "image": "http://imagem.band.com.br/COL_FT1_242.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_242.xml"
+        },
+        {
+            "name": "Carla Bigatto",
+            "image": "http://imagem.band.com.br/COL_FT1_152.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_152.xml"
+        },
+        {
+            "name": "Inês de Castro",
+            "image": "http://imagem.band.com.br/COL_FT1_37.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_37.xml"
+        },
+        {
+            "name": "Milton Blay",
+            "image": "http://imagem.band.com.br/COL_FT1_93.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_93.xml"
+        },
+        {
+            "name": "Marcelo Duarte",
+            "image": "http://imagem.band.com.br/COL_FT1_27.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_27.xml"
+        },
+        {
+            "name": "Matthew Shirts",
+            "image": "http://imagem.band.com.br/COL_FT1_281.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_281.xml"
+        },
+        {
+            "name": "Isso é Coisa da Sua Cabeça",
+            "image": "http://imagem.band.com.br/COL_FT1_282.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_282.xml"
+        },
+        {
+            "name": "Humanamente, com Daniel Barros e Inês de Castro",
+            "image": "http://imagem.band.com.br/COL_FT1_283.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_283.xml"
+        },
+        {
+            "name": "Álvaro Bandeira De Mello",
+            "image": "http://imagem.band.com.br/COL_FT1_286.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_286.xml"
+        },
+        {
+            "name": "Na Ponta do Lápis, com Marcos Silvestre",
+            "image": "http://imagem.band.com.br/COL_FT1_31.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_31.xml"
+        },
+        {
+            "name": "Por Conta Própria, com Marcos Silvestre",
+            "image": "http://imagem.band.com.br/COL_FT1_274.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_274.xml"
+        },
+        {
+            "name": "Wharrysson Lacerda",
+            "image": "http://imagem.band.com.br/COL_FT1_199.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_199.xml"
+        },
+        {
+            "name": "Paula Martins e Marcela Coimbra",
+            "image": "http://imagem.band.com.br/COL_FT1_270.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_270.xml"
+        },
+        {
+            "name": "Lídia Aratangy",
+            "image": "http://imagem.band.com.br/COL_FT1_254.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_254.xml"
+        },
+        {
+            "name": "Salomão Schvartzman",
+            "image": "http://imagem.band.com.br/COL_FT1_102.jpg",
+            "podcast": "http://www.band.uol.com.br/rss/colunista_102.xml"
+        }
+    ]
+}

@@ -7,16 +7,22 @@
     "test": "jest"
   },
   "dependencies": {
+    "buffer": "^5.0.2",
+    "encoding": "^0.1.12",
+    "i": "^0.3.5",
+    "iconv": "^2.2.1",
     "react": "15.4.1",
     "react-native": "0.39.2",
     "react-native-scrollable-tab-view": "^0.7.0",
-    "react-native-video": "^0.9.0"
+    "react-native-video": "^0.9.0",
+    "utf8": "^2.1.2"
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-jest": "18.0.0",
     "babel-plugin-module-alias": "^1.6.0",
     "babel-preset-react-native": "1.9.1",
+    "csvtojson": "^1.0.3",
     "jest": "18.0.0",
     "react-test-renderer": "15.4.1"
   },

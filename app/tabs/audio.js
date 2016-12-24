@@ -1,49 +1,54 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Slider } from 'react-native'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export class Audio extends Component {
-	constructor(){
+	constructor() {
 		super()
 		this.state = {
 			isPlaying: false,
 			currentTime: 0,
-			duration: 0
+			duration: 1
 		}
 	}
 
-	shouldComponentUpdate(nextProps, nextStates){
-		if(this.props.audio !== nextProps.audio){
+	shouldComponentUpdate(nextProps, nextStates) {
+		if (this.props.audio !== nextProps.audio) {
 			return true
-		}	
+		}
 		return false
 	}
 
-	componentDidUpdate(){
+	componentDidUpdate() {
 
 	}
 
-	setDuration(duration){
-		this.setDuration({duration})
+	componentWillUpdate() {
+		this.pause()
 	}
 
-	pause(){
-		this.setState({isPlaying: false})
+	setDuration(duration) {
+		this.setDuration({ duration })
 	}
 
-	play(){
-		this.setState({isPlaying: true})
+	pause() {
+		this.setState({ isPlaying: false })
 	}
 
-	changeTrackPositon(newTime){
-		this.setState({currentTime: newTime})
+	play() {
+		this.setState({ isPlaying: true })
+	}
+
+	changeTrackPositon(newTime) {
+		this.setState({ currentTime: newTime })
 	}
 
 	render() {
-		const {slider} = styles		
+		const {slider, playPause} = styles
 		return (
 			<View style={styles.audio}>
-				<Slider style={slider} minimumValue={0} maximumValue={this.duration}/>
-				<PlayPause isPlaying={this.state.isPlaying}/>
+				<Slider style={slider} minimumValue={0} maximumValue={this.state.duration} />
+				<PlayPause style={playPause} isPlaying={this.state.isPlaying} play={this.play.bind(this)} pause={this.pause.bind(this)} />
 			</View>
 		);
 	}
@@ -52,23 +57,35 @@ export class Audio extends Component {
 
 
 // <Streaming />
-
-class PlayPause extends Component{
-	render(){
-		return (
-			<View></View>
-		)
+class PlayPause extends Component {
+	constructor() {
+		super()
+		const size = 200
+		this.icons = {
+			play: <MaterialIcons size={size} name="play-circle-outline" />,
+			pause: <MaterialIcons size={size} name="pause-circle-outline" />
+		}
+	}
+	render() {
+		const {play, pause} = this.icons
+			, Icon = () => this.props.isPlaying ? play : pause
+		return <View style={this.props.style}><Icon /></View>
 	}
 }
 
 const styles = StyleSheet.create({
 	audio: {
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		paddingBottom: 130,
+		paddingTop: 20,		
+	},
+	slider: {
 		alignSelf: 'stretch',
 	},
-	slider:{
-		flex: 1,
+	playPause:{
+		marginTop: 30
 	}
 });
 

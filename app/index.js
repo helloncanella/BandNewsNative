@@ -44,6 +44,7 @@ export class Index extends Component {
 
 	render() {
 		const {columnistProps, podcastsProps, audioProps} = this.childrenProps()
+		console.log({columnist:podcastsProps.columnist})
 
 		return (
 			<ScrollableTabView style={styles.container} page={this.state.tab}>

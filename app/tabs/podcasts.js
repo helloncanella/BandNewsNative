@@ -38,26 +38,33 @@ export class Podcasts extends Component {
     }
 
     fetchPodcasts() {
-        const {setState, formatListData, endFetching} = this
-            , {columnist} = this.props
-            , self = this
+        const {columnist} = this.props
 
-        this.startFetching()
+        if (columnist) {
+            const {setState, formatListData, endFetching} = this
+                , self = this
 
-        return new PodcastList(columnist)
-            .fetch()
-            .then(podcasts => formatListData(podcasts))
-            .then(podcasts => self.setState({ podcasts, fetching: false}))
-            .catch((error)=>{
-                printError(error)
-                endFetching()
-            })
+            this.startFetching()
 
+            return new PodcastList(columnist)
+                .fetch()
+                .then(podcasts => formatListData(podcasts))
+                .then(podcasts => self.setState({ podcasts, fetching: false }))
+                .catch((error) => {
+                    printError(error)
+                    endFetching()
+                })
+        }
+
+    }
+
+    shouldComponentUpdate() {
+        //TODO
+        return true
     }
 
     componentDidUpdate(nexProps, nexState) {
         if (nexProps.columnist !== this.props.columnist) {
-            this.setState({ fetching: true })
             this.fetchPodcasts()
         }
     }

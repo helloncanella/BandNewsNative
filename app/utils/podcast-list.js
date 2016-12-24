@@ -7,7 +7,7 @@ const {columnists} = require('data/columnists.json')
 export default class PodcastList {
 
     constructor(columnist) {
-        this.columnist = columnist
+        this.columnist = columnist || ''
     }
 
     getXmlUrl() {
@@ -34,11 +34,10 @@ export default class PodcastList {
     }
 
     relevantPodcastData(json) {
-        // debugger
         const itens = json.rss.channel[0].item
             , podcasts = itens.map((item, index) => {
                 return {
-                    description: item.title[0],
+                    description: unescape(encodeURIComponent(item.title[0])),
                     date: item.pubDate[0],
                     audioUrl: item.enclosure[0]['$'].url
                 }
@@ -53,7 +52,7 @@ export default class PodcastList {
 
         const task = this.fetchXml(xmlUrl)
             .then(xml => xmlToJson(xml))
-            .then(json => {console.log(relevantPodcastData(json)[0].description); return relevantPodcastData(json)})
+            .then(json => relevantPodcastData(json))
             .catch(printError)
 
         return task

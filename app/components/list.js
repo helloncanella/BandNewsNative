@@ -39,6 +39,7 @@ export class List extends Component {
                 style={styles.container}
                 dataSource={ds.cloneWithRows(data)}
                 renderRow={this.renderRow.bind(this)}
+                enableEmptySections={true}
                 />
         )
     }

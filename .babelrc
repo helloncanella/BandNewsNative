@@ -17,6 +17,14 @@
                 {
                     "src": "./app/data",
                     "expose": "data"
+                },
+                {
+                    "src": "./app/components",
+                    "expose": "components"
+                },
+                {
+                    "src": "./app/utils",
+                    "expose": "utils"
                 }
             ]
         ]

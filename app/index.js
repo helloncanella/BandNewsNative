@@ -33,7 +33,7 @@ export class Index extends Component {
 				selectColumnist: self.selectColumnist.bind(self) 
 			},
 			podcastsProps: {
-				columinist: self.state.selectedColumnist,
+				columnist: self.state.selectedColumnist,
 				selectAudio: self.selectAudio.bind(self)
 			},
 			audioProps: {

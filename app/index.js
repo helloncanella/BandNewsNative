@@ -44,17 +44,17 @@ export class Index extends Component {
 
 	render() {
 		const {columnistProps, podcastsProps, audioProps} = this.childrenProps()
+			
 		return (
 			<ScrollableTabView style={styles.container} page={this.state.tab}>
-				
+				<Columnists tabLabel="Colunistas" {...columnistProps} />
+				<Podcasts tabLabel="Podcasts" {...podcastsProps} />
 				<Audio tabLabel="Audio" {...audioProps} />
 			</ScrollableTabView>
 		);
 	}
 }
 
-// <Columnists tabLabel="Colunistas" {...columnistProps} />
-				// <Podcasts tabLabel="Podcasts" {...podcastsProps} />
 
 const styles = StyleSheet.create({
 	container: {

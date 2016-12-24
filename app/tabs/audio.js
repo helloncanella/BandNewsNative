@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Slider } from 'react-native'
+import { StyleSheet, Text, View, Slider, TouchableHighlight } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import TimeFormater from 'utils/time-formater.js'
 
 export class Audio extends Component {
 	constructor() {
@@ -8,23 +9,14 @@ export class Audio extends Component {
 		this.state = {
 			isPlaying: false,
 			currentTime: 0,
-			duration: 1
+			duration: 3777788888
 		}
 	}
 
-	shouldComponentUpdate(nextProps, nextStates) {
-		if (this.props.audio !== nextProps.audio) {
-			return true
+	componentWillUpdate(nextProps, nextStates){
+		if(nextProps.audio !== this.props.audio){
+			this.pause()
 		}
-		return false
-	}
-
-	componentDidUpdate() {
-
-	}
-
-	componentWillUpdate() {
-		this.pause()
 	}
 
 	setDuration(duration) {
@@ -35,26 +27,92 @@ export class Audio extends Component {
 		this.setState({ isPlaying: false })
 	}
 
-	play() {
-		this.setState({ isPlaying: true })
+	togglePlayPause() {
+		this.setState({ isPlaying: !this.state.isPlaying })
 	}
 
 	changeTrackPositon(newTime) {
 		this.setState({ currentTime: newTime })
 	}
 
+	childrenProps(){
+		const self = this
+			, {slider, playPause, audio} = styles
+			, {duration, currentTime, isPlaying} = this.state
+		
+		return{
+			audioProps:{
+				style: audio
+			},
+			sliderProps:{
+				style: slider,
+				minimumValue: 0,				
+				maximumValue: duration,
+				currentTime: currentTime 
+			},
+			timeProps: {
+				duration,
+				currentTime
+			},
+			playPauseProps:{
+				style: playPause,
+				isPlaying,
+				onPress: self.togglePlayPause.bind(self)
+			}
+		}
+	}
+
 	render() {
-		const {slider, playPause} = styles
+		
+		const {audioProps, sliderProps, timeProps, playPauseProps} = this.childrenProps()
+
 		return (
-			<View style={styles.audio}>
-				<Slider style={slider} minimumValue={0} maximumValue={this.state.duration} />
-				<PlayPause style={playPause} isPlaying={this.state.isPlaying} play={this.play.bind(this)} pause={this.pause.bind(this)} />
+			<View {...audioProps}>			
+				<Slider {...sliderProps} />
+				<Time  {...timeProps} />
+				<PlayPause {...playPauseProps}  />
 			</View>
 		);
 	}
 }
+				
 
 
+
+class Time extends Component{
+	constructor(){
+		super()
+		this.formater = new TimeFormater()
+		this.state = {
+			showDuration: true
+		}
+	}
+
+	toggleDuration(){
+		this.setState({showDuration: !this.state.showDuration})
+	}
+
+	duration(){
+		const {duration} = this.props
+		return this.state.showDuration ? <Text> - {this.formater.convert(duration)}</Text> : null
+	}
+
+	currentTime(){
+		return <Text>{this.formater.convert(this.props.currentTime)}</Text>
+	}
+
+	render(){
+		return (
+			
+			<TouchableHighlight onPress={this.toggleDuration.bind(this)}>
+				<View style={styles.time}>
+					{this.currentTime()}
+					{this.duration()}
+				</View>
+			</TouchableHighlight>
+		)
+	}
+}
 
 // <Streaming />
 class PlayPause extends Component {
@@ -68,8 +126,14 @@ class PlayPause extends Component {
 	}
 	render() {
 		const {play, pause} = this.icons
-			, Icon = () => this.props.isPlaying ? play : pause
-		return <View style={this.props.style}><Icon /></View>
+			, Icon = () => this.props.isPlaying ? pause : play
+
+		return (
+			<TouchableHighlight onPress={this.props.onPress}>
+				<Text style={this.props.style}> <Icon /> </Text>
+			</TouchableHighlight>
+		)
+
 	}
 }
 
@@ -80,6 +144,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingBottom: 130,
 		paddingTop: 20,		
+	},
+	time:{
+		flexDirection: 'row'
 	},
 	slider: {
 		alignSelf: 'stretch',

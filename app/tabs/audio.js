@@ -66,8 +66,7 @@ export class Audio extends Component {
 	}
 
 	onSlidingComplete(currentTime) {
-		this.player.seek(currentTime)
-		
+		this.player.seek(currentTime)		
 	}
 
 	childrenProps() {
@@ -167,7 +166,6 @@ class Time extends Component {
 	}
 }
 
-// <Streaming />
 class PlayPause extends Component {
 	constructor() {
 		super()

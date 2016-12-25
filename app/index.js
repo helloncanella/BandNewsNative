@@ -37,7 +37,7 @@ export class Index extends Component {
 				selectAudio: self.selectAudio.bind(self)
 			},
 			audioProps: {
-				audio: self.state.selectedAudio
+				audioUrl: self.state.selectedAudio
 			}
 		}
 	}

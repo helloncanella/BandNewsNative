@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, Slider, TouchableHighlight } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TimeFormater from 'utils/time-formater.js'
+import Streaming from 'react-native-video'
 
 export class Audio extends Component {
 	constructor() {
@@ -9,78 +10,131 @@ export class Audio extends Component {
 		this.state = {
 			isPlaying: false,
 			currentTime: 0,
-			duration: 3777788888
+			duration: 0
 		}
 	}
 
-	componentWillUpdate(nextProps, nextStates){
-		if(nextProps.audio !== this.props.audio){
+	onError(error) {
+		//TODO - adjust
+		console.log(error)
+	}
+
+	shouldComponentUpdate(nextProps, nextStates) {
+		// if(this.state.currentTime && nextStates.currentTime === this.state.currentTime) return false
+		return true
+	}
+
+	reset() {
+		this.pause()
+	}
+
+	componentWillUpdate(nextProps, nextStates) {
+		if (nextProps.audio !== this.props.audio) {
 			this.pause()
 		}
 	}
 
 	setDuration(duration) {
-		this.setDuration({ duration })
+		this.setState({ duration })
+	}
+
+	startAudio({duration}) {
+		this.setDuration(duration)
+		this.play()
 	}
 
 	pause() {
 		this.setState({ isPlaying: false })
 	}
 
+	play() {
+		this.setState({ isPlaying: true })
+	}
+
 	togglePlayPause() {
 		this.setState({ isPlaying: !this.state.isPlaying })
 	}
 
-	changeTrackPositon(newTime) {
-		this.setState({ currentTime: newTime })
+	onProgress({currentTime}) {
+		if (currentTime !== this.state.currentTime) {
+			this.changeTrackPositon(currentTime)
+		}
 	}
 
-	childrenProps(){
-		const self = this
-			, {slider, playPause, audio} = styles
-			, {duration, currentTime, isPlaying} = this.state
+	changeTrackPositon(currentTime) {
+		this.setState({ currentTime })
+	}
+
+	onSlidingComplete(currentTime) {
+		this.player.seek(currentTime)
 		
-		return{
-			audioProps:{
+	}
+
+	childrenProps() {
+		const self = this
+			, {slider, playPause, audio, streaming} = styles
+			, {duration, currentTime, isPlaying} = this.state
+			, {audioUrl} = this.props
+
+		return {
+			audioProps: {
 				style: audio
 			},
-			sliderProps:{
+			sliderProps: {
 				style: slider,
-				minimumValue: 0,				
+				minimumValue: 0,
 				maximumValue: duration,
-				currentTime: currentTime 
+				value: currentTime,
+				onSlidingComplete: self.onSlidingComplete.bind(self)
 			},
 			timeProps: {
 				duration,
 				currentTime
 			},
-			playPauseProps:{
+			playPauseProps: {
 				style: playPause,
 				isPlaying,
 				onPress: self.togglePlayPause.bind(self)
+			},
+			streamingProps: {
+				ref: (ref) => {
+					self.player = ref
+				},
+				style: streaming,
+				source: { uri: audioUrl },
+				volume: 1.0,
+				rate: 1.0,
+				paused: !isPlaying,
+				repeat: false,
+				playInBackground: true,
+				onError: self.onError.bind(self),
+				onLoad: self.startAudio.bind(self),
+				onProgress: self.onProgress.bind(self),
+				onEnd: self.reset.bind(self)
 			}
 		}
 	}
 
 	render() {
-		
-		const {audioProps, sliderProps, timeProps, playPauseProps} = this.childrenProps()
+
+		const {audioProps, sliderProps, timeProps, playPauseProps, streamingProps} = this.childrenProps()
 
 		return (
-			<View {...audioProps}>			
+			<View {...audioProps}>
 				<Slider {...sliderProps} />
 				<Time  {...timeProps} />
-				<PlayPause {...playPauseProps}  />
+				<PlayPause {...playPauseProps} />
+				<Streaming {...streamingProps} />
 			</View>
 		);
 	}
 }
-				
 
 
 
-class Time extends Component{
-	constructor(){
+
+class Time extends Component {
+	constructor() {
 		super()
 		this.formater = new TimeFormater()
 		this.state = {
@@ -88,22 +142,21 @@ class Time extends Component{
 		}
 	}
 
-	toggleDuration(){
-		this.setState({showDuration: !this.state.showDuration})
+	toggleDuration() {
+		this.setState({ showDuration: !this.state.showDuration })
 	}
 
-	duration(){
+	duration() {
 		const {duration} = this.props
-		return this.state.showDuration ? <Text> - {this.formater.convert(duration)}</Text> : null
+		return this.state.showDuration ? <Text style={styles.timeText}> | {this.formater.convert(duration)}</Text> : null
 	}
 
-	currentTime(){
-		return <Text>{this.formater.convert(this.props.currentTime)}</Text>
+	currentTime() {
+		return <Text style={styles.timeText}>{this.formater.convert(this.props.currentTime)}</Text>
 	}
 
-	render(){
+	render() {
 		return (
-			
 			<TouchableHighlight onPress={this.toggleDuration.bind(this)}>
 				<View style={styles.time}>
 					{this.currentTime()}
@@ -137,22 +190,30 @@ class PlayPause extends Component {
 	}
 }
 
+
 const styles = StyleSheet.create({
 	audio: {
 		flex: 1,
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		paddingBottom: 130,
-		paddingTop: 20,		
+		paddingTop: 20,
 	},
-	time:{
-		flexDirection: 'row'
+	time: {
+		flexDirection: 'row',
+	},
+	timeText:{
+		fontSize:25
 	},
 	slider: {
 		alignSelf: 'stretch',
 	},
-	playPause:{
+	playPause: {
 		marginTop: 30
+	},
+	streamming: {
+		height: 0,
+		opacity: 0
 	}
 });
 

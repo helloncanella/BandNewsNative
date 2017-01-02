@@ -17,13 +17,12 @@ export default class PodcastList {
 
     fetchXml(xmlUrl) {
         return new Promise((resolve, reject) => {
-            fetch(xmlUrl)
-                .then(response => response.text())
-                .then(xml => resolve(xml))
+            fetch(`https://proxy-band-news.herokuapp.com?url=${xmlUrl}`)
+                .then(response => resolve(response.text()))
                 .catch(error => reject(error))
         })
     }
-
+    
     xmlToJson(xml) {
         return new Promise((resolve, reject) => {
             parseString(xml, (err, result) => {
@@ -37,7 +36,7 @@ export default class PodcastList {
         const itens = json.rss.channel[0].item
             , podcasts = itens.map((item, index) => {
                 return {
-                    description: unescape(encodeURIComponent(item.title[0])),
+                    description: item.title[0],
                     date: item.pubDate[0],
                     audioUrl: item.enclosure[0]['$'].url
                 }

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Text, View, Slider, TouchableHighlight } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TimeFormater from 'utils/time-formater.js'
 import Streaming from 'react-native-video'
+import { NoItem as NoAudio } from 'components/no-item.js'
 
 export class Audio extends Component {
 	constructor() {
@@ -66,7 +67,7 @@ export class Audio extends Component {
 	}
 
 	onSlidingComplete(currentTime) {
-		this.player.seek(currentTime)		
+		this.player.seek(currentTime)
 	}
 
 	childrenProps() {
@@ -96,9 +97,7 @@ export class Audio extends Component {
 				onPress: self.togglePlayPause.bind(self)
 			},
 			streamingProps: {
-				ref: (ref) => {
-					self.player = ref
-				},
+				ref: ref => self.player = ref,
 				style: streaming,
 				source: { uri: audioUrl },
 				volume: 1.0,
@@ -114,8 +113,11 @@ export class Audio extends Component {
 		}
 	}
 
-	render() {
+	noAudio() {
+		return <NoAudio message="Você ainda não selecionou nenhum podcast" icon="radio" />
+	}
 
+	audioController() {
 		const {audioProps, sliderProps, timeProps, playPauseProps, streamingProps} = this.childrenProps()
 
 		return (
@@ -125,10 +127,17 @@ export class Audio extends Component {
 				<PlayPause {...playPauseProps} />
 				<Streaming {...streamingProps} />
 			</View>
-		);
+		)
+	}
+
+	render() {
+		return !this.props.audioUrl ? this.noAudio() : this.audioController()
 	}
 }
 
+Audio.propTypes = {
+    audioUrl: PropTypes.string.isRequired,
+}
 
 
 
@@ -200,8 +209,8 @@ const styles = StyleSheet.create({
 	time: {
 		flexDirection: 'row',
 	},
-	timeText:{
-		fontSize:25
+	timeText: {
+		fontSize: 25
 	},
 	slider: {
 		alignSelf: 'stretch',

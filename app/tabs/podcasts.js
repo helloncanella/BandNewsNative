@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { List } from 'components/list.js'
 import PodcastList from 'utils/podcast-list.js'
 import printError from 'utils/onError.js'
+import {NoItem as NoPodcasts} from 'components/no-item.js'
 
 export class Podcasts extends Component {
     constructor() {
@@ -73,11 +74,16 @@ export class Podcasts extends Component {
         this.fetchPodcasts()
     }
 
-    render() {
-        const list = <List onSelectItem={this.props.selectAudio} data={this.state.podcasts} />
-            , component = !this.isFetching() ? list : <Text>Loading...</Text>
+    noPodcasts(){
+        return <NoPodcasts message="Você ainda não selecionou nenhum colunista" icon="face" />
+    }
 
-        return component
+    list(){
+        return <List onSelectItem={this.props.selectAudio} data={this.state.podcasts} />
+    }
+
+    render() {      
+        return !this.props.columnist ? this.noPodcasts() : (!this.isFetching() ? this.list() : <Text>Loading...</Text>)
     }
 }
 

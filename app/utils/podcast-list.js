@@ -12,7 +12,7 @@ export default class PodcastList {
 
     getXmlUrl() {
         const {columnist} = this
-        return xmlUrl = columnists.find((o) => o.name === columnist)['xml']
+        return columnists.find((o) => o.name === columnist)['xml']
     }
 
     fetchXml(xmlUrl) {

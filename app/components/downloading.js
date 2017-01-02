@@ -17,9 +17,9 @@ export class Downloading extends Component {
         return <Error message="Erro na solicitação" icon="cancel" />
     }
 
-    activityIndicatior() {
+    activityIndicator() {
         const {container} = styles
-        return <Loading animating={!this.state.downloadFailed} message="Carregando..."/>
+        return <Loading message="Carregando..."/>
     }
 
     componentDidMount(){
@@ -29,11 +29,10 @@ export class Downloading extends Component {
 
     clearTimeout(){
         this.setState({downloadFailed:true})
-        clearTimeout(this.timer)
     }
 
     render() {
-        return !this.state.downloadFailed ? this.activityIndicatior() : this.error()
+        return !this.state.downloadFailed ? this.activityIndicator() : this.error()
     }
 }
 

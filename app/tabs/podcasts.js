@@ -4,6 +4,7 @@ import { List } from 'components/list.js'
 import PodcastList from 'utils/podcast-list.js'
 import printError from 'utils/onError.js'
 import {NoItem as NoPodcasts} from 'components/no-item.js'
+import {Downloading} from 'components/downloading.js'
 
 export class Podcasts extends Component {
     constructor() {
@@ -12,6 +13,8 @@ export class Podcasts extends Component {
             podcasts: [],
             fetching: false
         }
+        this.endFetching = this.endFetching.bind(this)
+        this.startFetching = this.startFetching.bind(this)
     }
 
     //formating data to push to the List Component
@@ -83,7 +86,7 @@ export class Podcasts extends Component {
     }
 
     render() {      
-        return !this.props.columnist ? this.noPodcasts() : (!this.isFetching() ? this.list() : <Text>Loading...</Text>)
+        return !this.props.columnist ? this.noPodcasts() : (!this.isFetching() ? this.list() : <Downloading timeout={20000}/>)
     }
 }
 

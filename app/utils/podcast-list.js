@@ -28,7 +28,7 @@ export default class PodcastList {
             parseString(xml, (err, result) => {
                 if (err) reject(err)
                 resolve(result)
-            })
+            }) 
         })
     }
 

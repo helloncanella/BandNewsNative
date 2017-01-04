@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Text, View, ListView, Image, TouchableHighlight } from 'react-native'
 
-const rowHasChanged = (r1,r2) => r1!==r2
+const rowHasChanged = (r1, r2) => r1 !== r2
     , ds = new ListView.DataSource({ rowHasChanged })
 
 export class List extends Component {
@@ -14,18 +14,19 @@ export class List extends Component {
         }
     }
 
-    renderRow({primaryText, secondaryText, image, id}) {
+    renderRow({primaryText, headerText = '', secondaryText = '', image, id}) {
 
-        const {thumbnail, row} = styles
+        const {thumbnail, row, secondaryTextStyle, headerStyle} = styles
             , touchProps = this.touchProps()
             , {onSelectItem} = this.props
-
 
         return (
             <TouchableHighlight {...touchProps} onPress={() => onSelectItem(id)}>
                 <View style={row}>
                     {image ? <Image style={thumbnail} source={{ uri: image }} /> : null}
+                    {headerText ? <Text style={headerStyle}>{headerText}</Text> : null}
                     <Text>{primaryText}</Text>
+                    {secondaryText ? <Text style={secondaryTextStyle}>{secondaryText}</Text> : null}
                 </View>
             </TouchableHighlight>
         )
@@ -47,7 +48,7 @@ export class List extends Component {
 
 List.propTypes = {
     onSelectItem: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired 
+    data: PropTypes.array.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -66,5 +67,11 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         marginRight: 10
+    },
+    headerStyle: {
+
+    },
+    secondaryTextStyle: {
+
     }
 });

@@ -12,12 +12,13 @@ class CsvToJson {
     }
 
     createColumnist(info) {
-        const {code, name} = info
+        const {code, name, program, image} = info
             , {replaceCode, imageUrl, podcastUrl} = this
 
         return {
+            program,
             name,
-            image: replaceCode(imageUrl, code),
+            image: image || replaceCode(imageUrl, code),
             xml: replaceCode(podcastUrl, code)
         }
     }

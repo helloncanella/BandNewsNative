@@ -1,40 +1,40 @@
-name,code
-Ricardo Boechat,266
-José Simão,13
-Mônica Bergamo,82
-Dora Kramer,14
-Leandro Karnal,293
-Luis Paulo Rosenberg,279
-Luiz Carlos Mendonça de Barros,43
-Sérgio Xavier,64
-Eduardo Oinegue,298
-Milton Neves,42
-Ricardo Freire,140
-Tatiana Vasconcellos,284
-João Marcelo Bôscolli,277
-Miguel Icassatti,296
-Manu Karsten,276
-Carol Costa,253
-Sérgio Patrick,291
-Rosely Saião,23
-Camila Hirsh e Renata Veneri,70
-Gil Giardelli,280
-Vicky Bloch,90
-István Wessel,18
-Paulo Olzon,18
-Alexandra Corvo,285
-Vivi Favery,242
-Carla Bigatto,152
-Inês de Castro,37
-Milton Blay,93
-Marcelo Duarte ,27
-Matthew Shirts,281
-Isso é Coisa da Sua Cabeça,282
-"Humanamente, com Daniel Barros e Inês de Castro",283
-Álvaro Bandeira De Mello,286
-"Na Ponta do Lápis, com Marcos Silvestre",31
-"Por Conta Própria, com Marcos Silvestre",274
-Wharrysson Lacerda ,199
-Paula Martins e Marcela Coimbra,270
-Lídia Aratangy,254
-Salomão Schvartzman,102
+program, name,code, image
+"Jornal Band News",Ricardo Boechat,266
+"Buemba! Buemba!",José Simão,13, "http://imguol.com/2013/05/14/jose-simao-1368575198598_300x300.jpg"
+"Política",Mônica Bergamo,82, "http://2.bp.blogspot.com/-TxnOSkBKtEQ/Vf0q9_9VLvI/AAAAAAABD2w/LBDzwp1TPIc/s1600/monica_bergamo2_link.jpg"
+"Política",Dora Kramer,14, "http://imagem.band.com.br/HCL_FT1_30.jpg"
+"Careca de Saber",Leandro Karnal,293, "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRjbRSAkHHn17JzT4pctupCxXw0oefyFS2BqwQM8fuLSw3Y7J4V"
+"Economia",Luis Paulo Rosenberg,279, "https://pbs.twimg.com/profile_images/370686150/rs_400x400.jpg"
+"Pensa Brasil",Luiz Carlos Mendonça de Barros,43, "http://brasileiros.com.br/wp-content/uploads/2016/03/luiz-carlos-mendonca-de-barros-reproducao-yputube.jpg"
+"Futebol",Sérgio Xavier,64, "http://s2.glbimg.com/Ca4Bl0kA6beknmG0WNTMo6hpbyM=/350x650/i.glbimg.com/og/ig/infoglobo1/f/original/2015/08/13/sergioxavier.jpg"
+"Pensa Brasil",Eduardo Oinegue,298, "https://pbs.twimg.com/profile_images/760506241537966081/1KwznY_v.jpg"
+"Futebol",Milton Neves,42, "http://www.otvfoco.com.br/wp-content/uploads/2014/08/1349377790miltonneves.jpg"
+"Sua Viagem",Ricardo Freire,140, "http://motiveacao.com.br/wp-content/uploads/2016/06/ricardo-freire-motivea%C3%A7%C3%A3o2-400x400.jpg"
+"Band News em Alta Frequênica",Tatiana Vasconcellos,284
+"Toca Band News",João Marcelo Bôscolli,277, "http://i1.r7.com/data/files/2C95/948E/34F0/A32B/0134/F2C4/1DCF/3266/joao_Rog%C3%A9rio_Alonso_100_.jpg"
+"Cultura de Boteco",Miguel Icassatti,296, "http://ev.youon.tv/files_evporto_experts_thumbnails/740bd98f765a9f44a6b7d1eb6dba919d.jpg"
+"É o Bicho",Manu Karsten,276, "http://i1.r7.com/data/files/2C92/94A3/28BE/5E40/0128/C1EF/FFC3/42A6/5_700.jpg"
+"Jardinaria",Carol Costa,253, "https://pbs.twimg.com/profile_images/1134397090/CarolCostapq_400x400.jpg"
+"Correspondente em Nova York",Sérgio Patrick,291, "https://radioamantes.files.wordpress.com/2014/02/sc3a9rgio.jpg?w=595&h=786"
+"Seus Filhos",Rosely Saião,23, "http://www.portalimprensa.com.br/content_file_storage/2014/01/30/Rosely%20Uol.JPG"
+"Band News em Forma",Camila Hirsh e Renata Veneri,70, "http://3.bp.blogspot.com/-sVpJy28R3lw/TyPwLaTo-fI/AAAAAAAACpk/aLbdfkEMBAU/w1200-h630-p-nu/Camila+Hirsch+e+Renata+Veneri+apresentam+o+programa+BandNews+Em+Forma+na+Rede+BandNews+FM.jpg"
+"Revolução Band News",Gil Giardelli,280, "http://lab48.com.br/wp-content/uploads/2013/12/gil-giardelli.jpg"
+"Sua Carreira",Vicky Bloch,90, "http://management.pajucara.com/wp-content/uploads/2016/03/vicky.jpg"
+"Pitadas de Gastronomia",István Wessel,18, "https://pbs.twimg.com/profile_images/2401171867/z9mzzsseh1amy9cs6q1y.jpeg"
+"O Doutor Diagnóstico",Paulo Olzon,285, "http://files.workr.com.br/ViewImage.aspx?image=GB2N06JW4aj4BspWGGdYlw=="
+"Sua Carta de Vinhos",Alexandra Corvo,242, "http://www.miraedestino.com.br/gastronomia/miraedestino.com_AlexandraCorvo.jpg"
+"Bicicletando",Vivi Favery,299, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZfFdpJD5PqQZgDwg3VNy5TTNttNmdy9JDNxC72MsmP75ObT__"
+"Tem Mulher na Área",Carla Bigatto,152, "https://pbs.twimg.com/media/B_MQl8BWoAAC5bN.jpg"
+"Dentro do Espelho",Inês de Castro,37, "http://www.portalimprensa.com.br/content_file_storage/2013/03/12/ines%20de%20castro.jpg"
+"Correspondente em Paris",Milton Blay,93, "http://imagens.terceirotempo.bol.uol.com.br/21/00/arq_152100.JPG"
+"É Brasil Que Não Acaba Mais","Marcelo Duarte e Maiara Bastianello" ,27, "https://pbs.twimg.com/profile_images/393529967/GetAttachment.aspx__7_.jpg"
+"SP para Paulistanos", Matthew Shirts,281, "http://planetasustentavel.abril.com.br/blog/files/arquivo/1287175087157_133.jpg"
+"Isso é Coisa da Sua Cabeça","Daniel Barros e Inês de Castro",282, "https://pbs.twimg.com/profile_images/3257410073/99ad30030640d806cd3d8f031dc22b8b_400x400.jpeg"
+"Mercado Financeiro",Álvaro Bandeira De Mello,286, "http://www.inovaseminarios.com.br/wp-content/uploads/2016/08/ALVARO-BANDEIRA.jpg"
+"Na Ponta do Lápis","Marcos Silvestre",31, "http://luadepapel.leya.com.br/wp-content/uploads/2010/11/image002.jpg"
+"Por Conta Própria", "Marcos Silvestre",274, "http://static1.jornalmetro.com.br/wp-content/uploads/2016/03/Marcos-Silvestre.jpg"
+"Tecnologia",Wharrysson Lacerda ,199, "http://img1.olhardigital.uol.com.br/uploads/acervo_imagens/2014/07/20140716123339_660_420.jpg"
+"Estilo BandNews FM",Paula Martins e Marcela Coimbra,270, "http://paulamartinsoficial.com.br/wp-content/themes/bpm/images/perfil-paula-martins.jpg"
+"Senta que lá vem DR",Lídia Aratangy,254, "http://acervo.novaescola.org.br/img/gestao/001-lidia-aratangy.jpg"
+"Crônica",Salomão Schvartzman,102, "https://pbs.twimg.com/profile_images/572021849/foto_400x400.jpg"
+Humanamente,"Daniel Barros e Inês de Castro",283, "https://pbs.twimg.com/media/Ca7UcqeW0AEXIEc.jpg"

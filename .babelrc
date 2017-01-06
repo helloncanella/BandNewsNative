@@ -25,6 +25,10 @@
                 {
                     "src": "./app/utils",
                     "expose": "utils"
+                },
+                {
+                    "src": "./app/styles",
+                    "expose": "styles"
                 }
             ]
         ]

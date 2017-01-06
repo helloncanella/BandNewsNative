@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { typography, color, grid } from 'styles/global.js'
 
 export class Feedback extends Component {
 
@@ -32,8 +33,10 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 0,
-        fontSize: 25,
-        textAlign: 'center'
+        fontSize: typography.big,
+        textAlign: 'center',
+        padding: grid.padding,
+        color: color.silentText
     }
 });
 

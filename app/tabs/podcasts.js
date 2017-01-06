@@ -23,7 +23,7 @@ export class Podcasts extends Component {
             const {date, description, audioUrl} = podcast
             return {
                 primaryText: description,
-                id: audioUrl,
+                payload: audioUrl,
                 secondaryText: date
             }
         })

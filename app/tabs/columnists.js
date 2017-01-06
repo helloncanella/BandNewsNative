@@ -7,8 +7,8 @@ export class Columnists extends Component {
 
     columnistsInfo() {
         return columnistsInfo.map((columinst) => {
-            const {name, image} = columinst
-            return { primaryText: name, image, id:name }
+            const {name, image, program} = columinst
+            return { primaryText: name, image, payload:name, headerText: program } 
         })
     }
 

@@ -14,7 +14,7 @@ export class Downloading extends Component {
     }
 
     error() {
-        return <Error message="Erro na solicitação" icon="cancel" />
+        return <Error message="Problemas na sua conexão com a internet." icon="cancel" />
     }
 
     activityIndicator() {

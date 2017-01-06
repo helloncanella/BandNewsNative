@@ -5,6 +5,9 @@ import PodcastList from 'utils/podcast-list.js'
 import printError from 'utils/onError.js'
 import {NoItem as NoPodcasts} from 'components/no-item.js'
 import {Downloading} from 'components/downloading.js'
+import TimeFormater from 'utils/time-formater.js'
+
+const formater = new TimeFormater()
 
 export class Podcasts extends Component {
     constructor() {
@@ -24,7 +27,7 @@ export class Podcasts extends Component {
             return {
                 primaryText: description,
                 payload: audioUrl,
-                secondaryText: date
+                secondaryText: formater.portugueseDate(date)
             }
         })
     }

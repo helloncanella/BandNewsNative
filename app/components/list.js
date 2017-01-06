@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Text, View, ListView, Image, TouchableHighlight } from 'react-native'
-import {typography, color} from 'styles/global.js'
+import {typography, color, grid} from 'styles/global.js'
 
 const rowHasChanged = (r1, r2) => r1 !== r2
     , ds = new ListView.DataSource({ rowHasChanged })
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: color.borderLine,
-        padding: 15,
+        padding: grid.padding,
         alignItems: 'center'
     },
     thumbnail: {

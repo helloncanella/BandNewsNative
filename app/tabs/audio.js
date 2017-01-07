@@ -91,11 +91,6 @@ export class Audio extends Component {
 				duration,
 				currentTime
 			},
-			playPauseProps: {
-				style: playPause,
-				isPlaying,
-				onPress: self.togglePlayPause.bind(self)
-			},
 			streamingProps: {
 				ref: ref => self.player = ref,
 				style: streaming,
@@ -124,7 +119,7 @@ export class Audio extends Component {
 			<View {...audioProps}>
 				<Slider {...sliderProps} />
 				<Time  {...timeProps} />
-				<PlayPause {...playPauseProps} />
+				<AudioFlow />
 				<Streaming {...streamingProps} />
 			</View>
 		)
@@ -136,8 +131,59 @@ export class Audio extends Component {
 }
 
 Audio.propTypes = {
-    audioUrl: PropTypes.string.isRequired,
+	audioUrl: PropTypes.string.isRequired,
 }
+
+
+class AudioFlow extends Compoment {
+
+	childrenProps() {
+		return {
+
+
+			playPauseProps: {
+				style: playPause,
+				isPlaying,
+				onPress: self.togglePlayPause.bind(self)
+			},
+		}
+	}
+
+	render() {
+		const {playPauseProps} = this.childrenProps()
+
+		return (
+			<View style={}>
+				<Back />
+				<PlayPause {...playPauseProps} />
+				<Forward />
+			</View>
+		)
+	}
+}
+
+class Back extends Compoment {
+	render() {
+
+	}
+}
+
+class Forward extends Compoment {
+	render() {
+		<TouchableHighlight onPress={this.toggleDuration.bind(this)}>
+			<View style={styles.time}>
+				{this.currentTime()}
+				{this.duration()}
+			</View>
+		</TouchableHighlight>
+	}
+}
+
+
+class PodcastSelector extends Compoment{
+
+}
+
 
 
 

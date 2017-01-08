@@ -13,8 +13,13 @@ export class Index extends Component {
 		this.state = {
 			selectedAudio: '',
 			selectedColumnist: '',
+			podcasts: [],
 			tab: 0
 		}
+	}
+
+	setPodcasts(podcasts){
+		this.setState({podcasts})
 	}
 
 	selectColumnist(name) {
@@ -34,10 +39,12 @@ export class Index extends Component {
 			},
 			podcastsProps: {
 				columnist: self.state.selectedColumnist,
-				selectAudio: self.selectAudio.bind(self)
+				selectAudio: self.selectAudio.bind(self),
+				setPodcasts: self.setPodcasts.bind(self)
 			},
 			audioProps: {
-				audioUrl: self.state.selectedAudio
+				audioUrl: self.state.selectedAudio,
+				podcasts: self.state.podcasts
 			}
 		}
 	}

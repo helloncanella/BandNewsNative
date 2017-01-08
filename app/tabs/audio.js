@@ -4,6 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TimeFormater from 'utils/time-formater.js'
 import Streaming from 'react-native-video'
 import { NoItem as NoAudio } from 'components/no-item.js'
+import getIndexWithKeyValue from 'utils/get-index-with-key-value.js'
 
 export class Audio extends Component {
 	constructor() {
@@ -11,7 +12,9 @@ export class Audio extends Component {
 		this.state = {
 			isPlaying: false,
 			currentTime: 0,
-			duration: 0
+			duration: 0,
+			audioUrl: '',
+			audioIndex: undefined
 		}
 	}
 
@@ -25,15 +28,30 @@ export class Audio extends Component {
 		return true
 	}
 
+
 	reset() {
+		//TODO
 		this.pause()
 	}
 
+	setAudioIndexState(newIndex) {
+		const {podcasts, audioUrl } = this.props
+		this.setState({ audioIndex: newIndex || getIndexWithKeyValue(podcasts, 'audioUrl', audioUrl) })
+	}
+
 	componentWillUpdate(nextProps, nextStates) {
-		if (nextProps.audio !== this.props.audio) {
-			this.pause()
+		if (nextProps.audioUrl !== this.props.audioUrl) {
+			this.setState({ audioUrl: nextProps.audioUrl })
+			this.setAudioIndexState()
 		}
 	}
+
+	componentDidMount() {
+		const {audioUrl} = this.props
+		this.setAudioIndexState()
+		this.setState({audioUrl})
+	}
+
 
 	setDuration(duration) {
 		this.setState({ duration })
@@ -52,6 +70,25 @@ export class Audio extends Component {
 		this.setState({ isPlaying: true })
 	}
 
+	chooseOtherAudio(movement=0){
+		const newIndex = this.state.audioIndex + movement
+			, {audioUrl: newPodcastUrl} = this.props.podcasts[newIndex] || {}
+
+		if (newPodcastUrl) {
+			this.setState({ audioUrl: newPodcastUrl })
+			this.setAudioIndexState(newIndex)
+		}
+		
+	}
+
+	next() {
+		this.chooseOtherAudio(+1)
+	}
+
+	back() {
+		this.chooseOtherAudio(-1)
+	}
+
 	togglePlayPause() {
 		this.setState({ isPlaying: !this.state.isPlaying })
 	}
@@ -66,15 +103,23 @@ export class Audio extends Component {
 		this.setState({ currentTime })
 	}
 
+	reset() {
+		this.pause()
+		this.setState({ currentTime: 0 })
+	}
+
 	onSlidingComplete(currentTime) {
 		this.player.seek(currentTime)
 	}
+
+
 
 	childrenProps() {
 		const self = this
 			, {slider, playPause, audio, streaming} = styles
 			, {duration, currentTime, isPlaying} = this.state
-			, {audioUrl} = this.props
+
+
 
 		return {
 			audioProps: {
@@ -91,15 +136,29 @@ export class Audio extends Component {
 				duration,
 				currentTime
 			},
-			playPauseProps: {
-				style: playPause,
-				isPlaying,
-				onPress: self.togglePlayPause.bind(self)
+
+			audioFlowControlProps: {
+				playPauseProps: {
+					style: playPause,
+					isPlaying,
+					onPress: self.togglePlayPause.bind(self)
+				},
+				podcastControlProps: {
+					nextProps: {
+						type: 'next',
+						action: self.next.bind(this)
+					},
+					backProps: {
+						type: 'back',
+						action: self.back.bind(this)
+					}
+				}
 			},
+
 			streamingProps: {
 				ref: ref => self.player = ref,
 				style: streaming,
-				source: { uri: audioUrl },
+				source: { uri: self.state.audioUrl  },
 				volume: 1.0,
 				rate: 1.0,
 				paused: !isPlaying,
@@ -108,7 +167,10 @@ export class Audio extends Component {
 				onError: self.onError.bind(self),
 				onLoad: self.startAudio.bind(self),
 				onProgress: self.onProgress.bind(self),
-				onEnd: self.reset.bind(self)
+				onEnd: ()=>{
+					self.reset()
+					self.next()					
+				}
 			}
 		}
 	}
@@ -118,13 +180,13 @@ export class Audio extends Component {
 	}
 
 	audioController() {
-		const {audioProps, sliderProps, timeProps, playPauseProps, streamingProps} = this.childrenProps()
+		const {audioProps, sliderProps, timeProps, audioFlowControlProps, streamingProps} = this.childrenProps()
 
 		return (
 			<View {...audioProps}>
 				<Slider {...sliderProps} />
 				<Time  {...timeProps} />
-				<PlayPause {...playPauseProps} />
+				<AudioFlowControl {...audioFlowControlProps} />
 				<Streaming {...streamingProps} />
 			</View>
 		)
@@ -136,10 +198,60 @@ export class Audio extends Component {
 }
 
 Audio.propTypes = {
-    audioUrl: PropTypes.string.isRequired,
+	audioUrl: PropTypes.string.isRequired,
+	podcasts: PropTypes.array.isRequired
 }
 
+class AudioFlowControl extends Component {
 
+	shouldComponentUpdate(nexProps){
+		if(nexProps.playPauseProps.isPlaying !== this.props.playPauseProps.isPlaying){
+			return true
+		}
+		return false
+	}
+
+	render() {
+		const {playPauseProps, podcastControlProps} = this.props
+			, {nextProps, backProps} = podcastControlProps
+
+
+		return (
+			<View>
+				<PodcastSelector {...backProps} />
+				<PlayPause {...playPauseProps} />
+				<PodcastSelector {...nextProps} />
+			</View>
+		)
+	}
+}
+
+class PodcastSelector extends Component {
+	constructor(props) {
+		super()
+		this.setIcon(props)
+	}
+
+	setIcon(props) {
+		const {type} = props
+		if (type === 'back') this.icon = 'skip-previous'
+		else if (type == 'next') this.icon = 'skip-next'
+	}
+
+	shouldComponentUpdate() {
+		return false
+	}
+
+	render() {
+		return (
+			<TouchableHighlight onPress={this.props.action}>
+				<Text style={this.props.style}>
+					<MaterialIcons size={30} name={this.icon} />
+				</Text>
+			</TouchableHighlight>
+		)
+	}
+}
 
 class Time extends Component {
 	constructor() {

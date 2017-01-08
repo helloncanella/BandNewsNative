@@ -28,7 +28,7 @@ export class Downloading extends Component {
     }
 
     clearTimeout(){
-        this.setState({downloadFailed:true})
+        //this.setState({downloadFailed:true})
     }
 
     render() {

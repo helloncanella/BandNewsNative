@@ -4,6 +4,10 @@ import printError from 'utils/onError.js'
 const {parseString} = require('xml2js')
 const {columnists} = require('data/columnists.json')
 
+import TimeFormater from 'utils/time-formater.js'
+const timeFormater = new TimeFormater()
+
+
 export default class PodcastList {
 
     constructor(columnist) {
@@ -36,8 +40,9 @@ export default class PodcastList {
         const itens = json.rss.channel[0].item
             , podcasts = itens.map((item, index) => {
                 return {
+                    columnTitle: item['itunes:author'][0],
                     description: item.title[0],
-                    date: item.pubDate[0],
+                    date: timeFormater.portugueseDate(item.pubDate[0]),
                     audioUrl: item.enclosure[0]['$'].url
                 }
             })

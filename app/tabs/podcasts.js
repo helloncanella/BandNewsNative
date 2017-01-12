@@ -29,7 +29,7 @@ export class Podcasts extends Component {
             return {
                 primaryText: description,
                 payload: audioUrl,
-                secondaryText: timeFormater.portugueseDate(date)
+                secondaryText: date
             }
         })
     }
@@ -84,6 +84,7 @@ export class Podcasts extends Component {
             this.fetchPodcasts()
         }
     }
+    
 
     componentDidMount() {
         this.fetchPodcasts()

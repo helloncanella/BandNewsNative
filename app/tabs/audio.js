@@ -5,7 +5,7 @@ import TimeFormater from 'utils/time-formater.js'
 import Streaming from 'react-native-video'
 import { NoItem as NoAudio } from 'components/no-item.js'
 import getIndexWithKeyValue from 'utils/get-index-with-key-value.js'
-import { grid, color } from 'styles/global.js'
+import { grid, color, typography } from 'styles/global.js'
 
 export class Audio extends Component {
 	constructor() {
@@ -46,6 +46,7 @@ export class Audio extends Component {
 			this.setAudioIndexState()
 		}
 	}
+
 
 	componentDidMount() {
 		const {audioUrl} = this.props
@@ -118,9 +119,8 @@ export class Audio extends Component {
 	childrenProps() {
 		const self = this
 			, {slider, playPause, audio, streaming} = styles
-			, {duration, currentTime, isPlaying} = this.state
-
-
+			, {duration, currentTime, isPlaying, audioIndex} = this.state
+			, podcast = !isNaN(audioIndex) ? this.props.podcasts[audioIndex] : {}
 
 		return {
 			audioProps: {
@@ -139,6 +139,12 @@ export class Audio extends Component {
 					duration,
 					currentTime
 				},
+			},
+
+			podcastDetails: {
+				description: podcast.description, 
+				date: podcast.date, 
+				columnTitle: podcast.columnTitle
 			},
 
 
@@ -185,17 +191,20 @@ export class Audio extends Component {
 	}
 
 	audioController() {
-		const {audioProps, timeFlowProps, audioFlowControlProps, streamingProps} = this.childrenProps()
-
+		const {audioProps, timeFlowProps, audioFlowControlProps, streamingProps, podcastDetails} = this.childrenProps()
+			, {stretch} = styles
 		return (
 			<View {...audioProps}>
-				<TimeFlow {...timeFlowProps} />
-				<AudioFlowControl {...audioFlowControlProps} />
-				<Streaming {...streamingProps} />
+				<PodcastDetails {...podcastDetails}/>
+				<View style={stretch}>
+					<TimeFlow {...timeFlowProps} />
+					<AudioFlowControl {...audioFlowControlProps} />
+					<Streaming {...streamingProps} />
+				</View>
 			</View>
 		)
 	}
-
+ 
 	render() {
 		return !this.props.audioUrl ? this.noAudio() : this.audioController()
 	}
@@ -206,7 +215,19 @@ Audio.propTypes = {
 	podcasts: PropTypes.array.isRequired
 }
 
-
+class PodcastDetails extends Component {
+	render(){
+		const {description, columnTitle, date} = this.props
+			, {podcastDetails, descriptionStyle, columnTitleStyle, dateStyle} = styles
+		return (
+			<View style={podcastDetails}>
+				<Text style={columnTitleStyle}>{columnTitle}</Text>
+				<Text style={descriptionStyle}>{description}</Text>
+				<Text style={dateStyle}>{date}</Text>
+			</View>
+		)
+	}
+}
 
 
 class AudioFlowControl extends Component {
@@ -330,13 +351,34 @@ class PlayPause extends Component {
 const styles = StyleSheet.create({
 	audio: {
 		flex: 1,
-		justifyContent: 'flex-end',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingTop: 20,
 	},
+	stretch:{
+		alignSelf:'stretch'
+	},
+	podcastDetails: {
+		paddingLeft: grid.padding,
+		paddingRight: grid.padding
+	}, 
+	descriptionStyle: {
+		fontSize: typography.big,
+		color: color.primary,
+		marginBottom: 5
+	},
+	columnTitleStyle: {
+		fontSize: typography.normal,
+		color: color.secondary,
+		marginBottom: 5,
+	},
+	dateStyle: {
+		fontSize: typography.normal,
+		color: color.secondary,
+	},
 	timeFlow: {
 		alignSelf: 'stretch',
-		marginBottom: 10
+		marginBottom: 3
 	},
 	time: {
 		flexDirection: 'row',

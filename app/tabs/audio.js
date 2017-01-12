@@ -49,7 +49,7 @@ export class Audio extends Component {
 	componentDidMount() {
 		const {audioUrl} = this.props
 		this.setAudioIndexState()
-		this.setState({audioUrl})
+		this.setState({ audioUrl })
 	}
 
 
@@ -70,7 +70,7 @@ export class Audio extends Component {
 		this.setState({ isPlaying: true })
 	}
 
-	chooseOtherAudio(movement=0){
+	chooseOtherAudio(movement = 0) {
 		const newIndex = this.state.audioIndex + movement
 			, {audioUrl: newPodcastUrl} = this.props.podcasts[newIndex] || {}
 
@@ -78,7 +78,7 @@ export class Audio extends Component {
 			this.setState({ audioUrl: newPodcastUrl })
 			this.setAudioIndexState(newIndex)
 		}
-		
+
 	}
 
 	next() {
@@ -158,7 +158,7 @@ export class Audio extends Component {
 			streamingProps: {
 				ref: ref => self.player = ref,
 				style: streaming,
-				source: { uri: self.state.audioUrl  },
+				source: { uri: self.state.audioUrl },
 				volume: 1.0,
 				rate: 1.0,
 				paused: !isPlaying,
@@ -167,9 +167,9 @@ export class Audio extends Component {
 				onError: self.onError.bind(self),
 				onLoad: self.startAudio.bind(self),
 				onProgress: self.onProgress.bind(self),
-				onEnd: ()=>{
+				onEnd: () => {
 					self.reset()
-					self.next()					
+					self.next()
 				}
 			}
 		}
@@ -202,10 +202,13 @@ Audio.propTypes = {
 	podcasts: PropTypes.array.isRequired
 }
 
+
+
+
 class AudioFlowControl extends Component {
 
-	shouldComponentUpdate(nexProps){
-		if(nexProps.playPauseProps.isPlaying !== this.props.playPauseProps.isPlaying){
+	shouldComponentUpdate(nexProps) {
+		if (nexProps.playPauseProps.isPlaying !== this.props.playPauseProps.isPlaying) {
 			return true
 		}
 		return false
@@ -214,13 +217,14 @@ class AudioFlowControl extends Component {
 	render() {
 		const {playPauseProps, podcastControlProps} = this.props
 			, {nextProps, backProps} = podcastControlProps
-
+			, {audioFlowControl} = styles
+			, iconSize = 50
 
 		return (
-			<View>
-				<PodcastSelector {...backProps} />
-				<PlayPause {...playPauseProps} />
-				<PodcastSelector {...nextProps} />
+			<View style={audioFlowControl}>
+				<PodcastSelector {...backProps} size={iconSize} />
+				<PlayPause {...playPauseProps} size={iconSize} />
+				<PodcastSelector {...nextProps} size={iconSize} />
 			</View>
 		)
 	}
@@ -246,20 +250,23 @@ class PodcastSelector extends Component {
 		return (
 			<TouchableHighlight onPress={this.props.action}>
 				<Text style={this.props.style}>
-					<MaterialIcons size={30} name={this.icon} />
+					<MaterialIcons size={this.props.size} name={this.icon} />
 				</Text>
 			</TouchableHighlight>
 		)
 	}
 }
 
+class TimeFlow extends Component{
+	render(){
+
+	}
+}
+
 class Time extends Component {
 	constructor() {
 		super()
-		this.formater = new TimeFormater()
-		this.state = {
-			showDuration: true
-		}
+		this.formater = new TimeFormater()		
 	}
 
 	toggleDuration() {
@@ -268,7 +275,7 @@ class Time extends Component {
 
 	duration() {
 		const {duration} = this.props
-		return this.state.showDuration ? <Text style={styles.timeText}> | {this.formater.convert(duration)}</Text> : null
+		return <Text style={styles.timeText}>{this.formater.convert(duration)} </Text> 
 	}
 
 	currentTime() {
@@ -276,11 +283,15 @@ class Time extends Component {
 	}
 
 	render() {
+
+		const Duration = () => this.duration()
+			, CurrentTime = () => this.currentTime()
+
 		return (
 			<TouchableHighlight onPress={this.toggleDuration.bind(this)}>
 				<View style={styles.time}>
-					{this.currentTime()}
-					{this.duration()}
+					<CurrentTime />
+					<Duration />
 				</View>
 			</TouchableHighlight>
 		)
@@ -288,12 +299,12 @@ class Time extends Component {
 }
 
 class PlayPause extends Component {
-	constructor() {
+	constructor(props) {
 		super()
-		const size = 200
+		const size = props.size
 		this.icons = {
-			play: <MaterialIcons size={size} name="play-circle-outline" />,
-			pause: <MaterialIcons size={size} name="pause-circle-outline" />
+			play: <MaterialIcons size={size} name="play-arrow" />,
+			pause: <MaterialIcons size={size} name="pause" />
 		}
 	}
 	render() {
@@ -313,22 +324,28 @@ class PlayPause extends Component {
 const styles = StyleSheet.create({
 	audio: {
 		flex: 1,
-		justifyContent: 'space-around',
+		justifyContent: 'flex-end',
 		alignItems: 'center',
-		paddingBottom: 130,
 		paddingTop: 20,
 	},
 	time: {
 		flexDirection: 'row',
+		justifyContent: 'flex-end'
 	},
 	timeText: {
-		fontSize: 25
+		fontSize: 15
 	},
 	slider: {
 		alignSelf: 'stretch',
 	},
 	playPause: {
-		marginTop: 30
+		marginTop: 0
+	},
+	audioFlowControl: {
+		alignSelf: 'stretch',
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		marginBottom: 20
 	},
 	streamming: {
 		height: 0,

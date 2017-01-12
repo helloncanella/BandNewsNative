@@ -5,6 +5,7 @@ import TimeFormater from 'utils/time-formater.js'
 import Streaming from 'react-native-video'
 import { NoItem as NoAudio } from 'components/no-item.js'
 import getIndexWithKeyValue from 'utils/get-index-with-key-value.js'
+import { grid, color } from 'styles/global.js'
 
 export class Audio extends Component {
 	constructor() {
@@ -125,17 +126,21 @@ export class Audio extends Component {
 			audioProps: {
 				style: audio
 			},
-			sliderProps: {
-				style: slider,
-				minimumValue: 0,
-				maximumValue: duration,
-				value: currentTime,
-				onSlidingComplete: self.onSlidingComplete.bind(self)
+
+			timeFlowProps: {
+				sliderProps: {
+					style: slider,
+					minimumValue: 0,
+					maximumValue: duration,
+					value: currentTime,
+					onSlidingComplete: self.onSlidingComplete.bind(self)
+				},
+				timeProps: {
+					duration,
+					currentTime
+				},
 			},
-			timeProps: {
-				duration,
-				currentTime
-			},
+
 
 			audioFlowControlProps: {
 				playPauseProps: {
@@ -180,12 +185,11 @@ export class Audio extends Component {
 	}
 
 	audioController() {
-		const {audioProps, sliderProps, timeProps, audioFlowControlProps, streamingProps} = this.childrenProps()
+		const {audioProps, timeFlowProps, audioFlowControlProps, streamingProps} = this.childrenProps()
 
 		return (
 			<View {...audioProps}>
-				<Slider {...sliderProps} />
-				<Time  {...timeProps} />
+				<TimeFlow {...timeFlowProps} />
 				<AudioFlowControl {...audioFlowControlProps} />
 				<Streaming {...streamingProps} />
 			</View>
@@ -219,12 +223,13 @@ class AudioFlowControl extends Component {
 			, {nextProps, backProps} = podcastControlProps
 			, {audioFlowControl} = styles
 			, iconSize = 50
+			, colorStyle = { color: color.secondary }
 
 		return (
 			<View style={audioFlowControl}>
-				<PodcastSelector {...backProps} size={iconSize} />
-				<PlayPause {...playPauseProps} size={iconSize} />
-				<PodcastSelector {...nextProps} size={iconSize} />
+				<PodcastSelector {...backProps} size={iconSize} style={colorStyle} />
+				<PlayPause {...playPauseProps} size={iconSize} style={colorStyle} />
+				<PodcastSelector {...nextProps} size={iconSize} style={colorStyle} />
 			</View>
 		)
 	}
@@ -257,25 +262,28 @@ class PodcastSelector extends Component {
 	}
 }
 
-class TimeFlow extends Component{
-	render(){
-
+class TimeFlow extends Component {
+	render() {
+		const {sliderProps, timeProps} = this.props
+			, {timeFlow} = styles
+		return (
+			<View style={timeFlow}>
+				<Slider {...sliderProps} />
+				<Time  {...timeProps} />
+			</View>
+		)
 	}
 }
 
 class Time extends Component {
 	constructor() {
 		super()
-		this.formater = new TimeFormater()		
-	}
-
-	toggleDuration() {
-		this.setState({ showDuration: !this.state.showDuration })
+		this.formater = new TimeFormater()
 	}
 
 	duration() {
 		const {duration} = this.props
-		return <Text style={styles.timeText}>{this.formater.convert(duration)} </Text> 
+		return <Text style={styles.timeText}>{this.formater.convert(duration)} </Text>
 	}
 
 	currentTime() {
@@ -288,12 +296,10 @@ class Time extends Component {
 			, CurrentTime = () => this.currentTime()
 
 		return (
-			<TouchableHighlight onPress={this.toggleDuration.bind(this)}>
-				<View style={styles.time}>
-					<CurrentTime />
-					<Duration />
-				</View>
-			</TouchableHighlight>
+			<View style={styles.time}>
+				<CurrentTime />
+				<Duration />
+			</View>
 		)
 	}
 }
@@ -328,12 +334,19 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingTop: 20,
 	},
+	timeFlow: {
+		alignSelf: 'stretch',
+		marginBottom: 10
+	},
 	time: {
 		flexDirection: 'row',
-		justifyContent: 'flex-end'
+		justifyContent: 'space-between',
+		paddingLeft: grid.padding,
+		paddingRight: grid.padding
 	},
 	timeText: {
-		fontSize: 15
+		fontSize: 12.5,
+		color: color.secondary
 	},
 	slider: {
 		alignSelf: 'stretch',
@@ -345,7 +358,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'stretch',
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		marginBottom: 20
+		marginBottom: 20,
 	},
 	streamming: {
 		height: 0,

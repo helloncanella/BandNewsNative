@@ -35,22 +35,26 @@ export class Audio extends Component {
 		this.pause()
 	}
 
+	getAudioIndex(audioUrl) {
+		const {podcasts} = this.props
+		return getIndexWithKeyValue(podcasts, 'audioUrl', audioUrl)
+	}
+
 	setAudioIndexState(newIndex) {
-		const {podcasts, audioUrl } = this.props
-		this.setState({ audioIndex: newIndex || getIndexWithKeyValue(podcasts, 'audioUrl', audioUrl) })
+		this.setState({ audioIndex: newIndex })
 	}
 
 	componentWillUpdate(nextProps, nextStates) {
 		if (nextProps.audioUrl !== this.props.audioUrl) {
 			this.setState({ audioUrl: nextProps.audioUrl })
-			this.setAudioIndexState()
+			this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl))
 		}
 	}
 
 
 	componentDidMount() {
 		const {audioUrl} = this.props
-		this.setAudioIndexState()
+		this.setAudioIndexState(this.getAudioIndex(audioUrl))
 		this.setState({ audioUrl })
 	}
 
@@ -96,7 +100,9 @@ export class Audio extends Component {
 	}
 
 	onProgress({currentTime}) {
+		console.log(currentTime , this.state.currentTime)
 		if (currentTime !== this.state.currentTime) {
+			
 			this.changeTrackPositon(currentTime)
 		}
 	}
@@ -107,6 +113,7 @@ export class Audio extends Component {
 
 	reset() {
 		this.pause()
+		this.player.seek(0)
 		this.setState({ currentTime: 0 })
 	}
 
@@ -121,6 +128,7 @@ export class Audio extends Component {
 			, {slider, playPause, audio, streaming} = styles
 			, {duration, currentTime, isPlaying, audioIndex} = this.state
 			, podcast = !isNaN(audioIndex) ? this.props.podcasts[audioIndex] : {}
+			, {	description = '', date = '', columnTitle = ''} = podcast
 
 		return {
 			audioProps: {
@@ -142,9 +150,9 @@ export class Audio extends Component {
 			},
 
 			podcastDetails: {
-				description: podcast.description, 
-				date: podcast.date, 
-				columnTitle: podcast.columnTitle
+				description,
+				date,
+				columnTitle
 			},
 
 
@@ -178,7 +186,7 @@ export class Audio extends Component {
 				onError: self.onError.bind(self),
 				onLoad: self.startAudio.bind(self),
 				onProgress: self.onProgress.bind(self),
-				onEnd: () => {
+				onEnd: () => {					
 					self.reset()
 					self.next()
 				}
@@ -195,7 +203,7 @@ export class Audio extends Component {
 			, {stretch} = styles
 		return (
 			<View {...audioProps}>
-				<PodcastDetails {...podcastDetails}/>
+				<PodcastDetails {...podcastDetails} />
 				<View style={stretch}>
 					<TimeFlow {...timeFlowProps} />
 					<AudioFlowControl {...audioFlowControlProps} />
@@ -204,7 +212,7 @@ export class Audio extends Component {
 			</View>
 		)
 	}
- 
+
 	render() {
 		return !this.props.audioUrl ? this.noAudio() : this.audioController()
 	}
@@ -216,7 +224,7 @@ Audio.propTypes = {
 }
 
 class PodcastDetails extends Component {
-	render(){
+	render() {
 		const {description, columnTitle, date} = this.props
 			, {podcastDetails, descriptionStyle, columnTitleStyle, dateStyle} = styles
 		return (
@@ -355,13 +363,13 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingTop: 20,
 	},
-	stretch:{
-		alignSelf:'stretch'
+	stretch: {
+		alignSelf: 'stretch'
 	},
 	podcastDetails: {
 		paddingLeft: grid.padding,
 		paddingRight: grid.padding
-	}, 
+	},
 	descriptionStyle: {
 		fontSize: typography.big,
 		color: color.primary,

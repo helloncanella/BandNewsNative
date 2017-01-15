@@ -14,6 +14,7 @@ export class Index extends Component {
 		this.state = {
 			selectedAudio: '',
 			selectedColumnist: '',
+			podcastOfCurrentPlayingColumnist: [],
 			podcasts: [],
 			tab: 0
 		}
@@ -28,7 +29,7 @@ export class Index extends Component {
 	}
 
 	selectAudio(url) {
-		this.setState({ selectedAudio: url, tab: 2 })
+		this.setState({ selectedAudio: url, tab: 2, podcastOfCurrentPlayingColumnist: this.state.podcasts })
 	}
 
 	childrenProps() {
@@ -45,7 +46,7 @@ export class Index extends Component {
 			},
 			audioProps: {
 				audioUrl: self.state.selectedAudio,
-				podcasts: self.state.podcasts
+				podcasts: self.state.podcastOfCurrentPlayingColumnist
 			}
 		}
 	}

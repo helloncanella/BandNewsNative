@@ -35,9 +35,8 @@ export class Audio extends Component {
 		this.pause()
 	}
 
-	getAudioIndex(audioUrl) {
-		const {podcasts} = this.props
-		return getIndexWithKeyValue(podcasts, 'audioUrl', audioUrl)
+	getAudioIndex(audioUrl, podcasts) {
+		return getIndexWithKeyValue(podcasts||this.props.podcasts, 'audioUrl', audioUrl)
 	}
 
 	setAudioIndexState(newIndex) {
@@ -46,8 +45,9 @@ export class Audio extends Component {
 
 	componentWillUpdate(nextProps, nextStates) {
 		if (nextProps.audioUrl !== this.props.audioUrl) {
+			const {audioUrl, podcasts : newPodcasts}  = nextProps
 			this.setState({ audioUrl: nextProps.audioUrl })
-			this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl))
+			this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl, podcasts))
 		}
 	}
 
@@ -100,9 +100,7 @@ export class Audio extends Component {
 	}
 
 	onProgress({currentTime}) {
-		console.log(currentTime , this.state.currentTime)
 		if (currentTime !== this.state.currentTime) {
-			
 			this.changeTrackPositon(currentTime)
 		}
 	}

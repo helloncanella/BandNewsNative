@@ -15,3 +15,8 @@ export const typography = {
 export const grid = {
     padding: 15
 }
+
+export const pressStyle = {
+    underlayColor: "transparent",
+    activeOpacity: 0.7
+}

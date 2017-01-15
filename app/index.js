@@ -28,7 +28,7 @@ export class Index extends Component {
 		this.setState({ selectedColumnist: name, tab: 1})
 	}
 
-	selectAudio(url) {
+	selectAudio(url) {		
 		this.setState({ selectedAudio: url, tab: 2, podcastOfCurrentPlayingColumnist: this.state.podcasts })
 	}
 

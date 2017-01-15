@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Text, View, ListView, Image, TouchableHighlight } from 'react-native'
-import {typography, color, grid} from 'styles/global.js'
+import {typography, color, grid, pressStyle} from 'styles/global.js'
 
 const rowHasChanged = (r1, r2) => r1 !== r2
     , ds = new ListView.DataSource({ rowHasChanged })
@@ -9,9 +9,9 @@ export class List extends Component {
 
     touchProps() {
         return {
-            style: styles.container,
-            underlayColor: "transparent",
-            activeOpacity: 0.7
+            underlayColor:pressStyle.underlayColor,
+            activeOpacity: pressStyle.activeOpacity,
+            style: styles.container
         } 
     }
 

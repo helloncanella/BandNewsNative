@@ -5,7 +5,7 @@ import TimeFormater from 'utils/time-formater.js'
 import Streaming from 'react-native-video'
 import { NoItem as NoAudio } from 'components/no-item.js'
 import getIndexWithKeyValue from 'utils/get-index-with-key-value.js'
-import { grid, color, typography } from 'styles/global.js'
+import { grid, color, typography, pressStyle } from 'styles/global.js'
 
 export class Audio extends Component {
 	constructor() {
@@ -280,7 +280,7 @@ class PodcastSelector extends Component {
 
 	render() {
 		return (
-			<TouchableHighlight onPress={this.props.action}>
+			<TouchableHighlight onPress={this.props.action} {...pressStyle}>
 				<Text style={this.props.style}>
 					<MaterialIcons size={this.props.size} name={this.icon} />
 				</Text>
@@ -345,7 +345,7 @@ class PlayPause extends Component {
 			, Icon = () => this.props.isPlaying ? pause : play
 
 		return (
-			<TouchableHighlight onPress={this.props.onPress}>
+			<TouchableHighlight onPress={this.props.onPress} {...pressStyle}>
 				<Text style={this.props.style}> <Icon /> </Text>
 			</TouchableHighlight>
 		)

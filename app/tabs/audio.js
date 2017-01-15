@@ -47,7 +47,7 @@ export class Audio extends Component {
 		if (nextProps.audioUrl !== this.props.audioUrl) {
 			const {audioUrl, podcasts : newPodcasts}  = nextProps
 			this.setState({ audioUrl: nextProps.audioUrl })
-			this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl, podcasts))
+			this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl, newPodcasts))
 		}
 	}
 

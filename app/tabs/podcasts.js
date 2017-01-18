@@ -6,6 +6,7 @@ import printError from 'utils/onError.js'
 import { NoItem as NoPodcasts } from 'components/no-item.js'
 import { Downloading } from 'components/downloading.js'
 import TimeFormater from 'utils/time-formater.js'
+import { NoItem as Error } from 'components/no-item.js'
 
 const timeFormater = new TimeFormater()
 
@@ -14,7 +15,9 @@ export class Podcasts extends Component {
         super()
         this.state = {
             podcasts: [],
-            fetching: false
+            fetching: false,
+            columnist: '', 
+            error: ''
         }
         this.endFetching = this.endFetching.bind(this)
         this.startFetching = this.startFetching.bind(this)
@@ -49,12 +52,22 @@ export class Podcasts extends Component {
     storePodcasts(podcasts) {
         const {formatPodcastsRawInfo} = this
         this.props.setPodcasts(podcasts)
-        this.setState({ podcasts: formatPodcastsRawInfo(podcasts)})
+        this.setState({ podcasts: formatPodcastsRawInfo(podcasts) })
     }
 
     handleError(error) {
         printError(error)
         this.endFetching()
+        this.setError('Problemas de conexão')
+    }
+
+    setError(error){
+        this.setState({error})
+    }
+
+
+    clearPossibleErrorStates(){
+        this.setState({error:''})
     }
 
     fetchPodcasts() {
@@ -66,7 +79,7 @@ export class Podcasts extends Component {
             this.startFetching()
 
             return new PodcastList(columnist)
-                .fetch()               
+                .fetch()
                 .then(storePodcasts)
                 .then(endFetching)
                 .catch(handleError)
@@ -81,10 +94,10 @@ export class Podcasts extends Component {
 
     componentDidUpdate(nexProps, nexState) {
         if (nexProps.columnist !== this.props.columnist) {
+            this.clearPossibleErrorStates()
             this.fetchPodcasts()
         }
     }
-    
 
     componentDidMount() {
         this.fetchPodcasts()
@@ -94,12 +107,25 @@ export class Podcasts extends Component {
         return <NoPodcasts message="Você ainda não selecionou nenhum colunista" icon="face" />
     }
 
+    showError(error) {
+        return <Error message={error} icon="cancel" />
+    }
+
     list() {
         return <List onSelectItem={this.props.selectAudio} data={this.state.podcasts} />
     }
 
     render() {
-        return !this.props.columnist ? this.noPodcasts() : (!this.isFetching() ? this.list() : <Downloading timeout={20000} />)
+        let component
+
+        if(!this.props.columnist) component = this.noPodcasts()
+        else if(this.isFetching()) component = <Downloading/>
+        else if(this.state.error) component = this.showError(this.state.error)
+        else component = this.list()
+
+        return component
+
+        // return !this.props.columnist ? this.noPodcasts() : (!this.isFetching() ? this.list() : this.state.error ? : <Downloading timeout={20000} />)
     }
 }
 

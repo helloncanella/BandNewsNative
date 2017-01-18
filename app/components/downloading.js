@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { NoItem as Error } from 'components/no-item.js'
 import {Loading} from 'components/loading.js'
 
 export class Downloading extends Component {
@@ -13,9 +12,7 @@ export class Downloading extends Component {
         this.clearTimeout = this.clearTimeout.bind(this)
     }
 
-    error() {
-        return <Error message="Problemas na sua conexão com a internet." icon="cancel" />
-    }
+    
 
     activityIndicator() {
         const {container} = styles
@@ -32,7 +29,7 @@ export class Downloading extends Component {
     }
 
     render() {
-        return !this.state.downloadFailed ? this.activityIndicator() : this.error()
+        return this.activityIndicator() 
     }
 }
 

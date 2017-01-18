@@ -125,7 +125,6 @@ export class Podcasts extends Component {
 
         return component
 
-        // return !this.props.columnist ? this.noPodcasts() : (!this.isFetching() ? this.list() : this.state.error ? : <Downloading timeout={20000} />)
     }
 }
 

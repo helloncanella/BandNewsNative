@@ -4,7 +4,7 @@ import { List } from 'components/list.js'
 import PodcastList from 'utils/podcast-list.js'
 import printError from 'utils/onError.js'
 import { NoItem as NoPodcasts } from 'components/no-item.js'
-import { Downloading } from 'components/downloading.js'
+import { Loading } from 'components/loading.js'
 import TimeFormater from 'utils/time-formater.js'
 import { NoItem as Error } from 'components/no-item.js'
 
@@ -119,7 +119,7 @@ export class Podcasts extends Component {
         let component
 
         if(!this.props.columnist) component = this.noPodcasts()
-        else if(this.isFetching()) component = <Downloading/>
+        else if(this.isFetching()) component = <Loading message="Carregando..." />
         else if(this.state.error) component = this.showError(this.state.error)
         else component = this.list()
 

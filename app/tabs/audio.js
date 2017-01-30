@@ -9,6 +9,7 @@ import { grid, color, typography, pressStyle } from 'styles/global.js'
 
 export class Audio extends Component {
 	constructor() {
+
 		super()
 		this.state = {
 			isPlaying: false,
@@ -24,19 +25,13 @@ export class Audio extends Component {
 		console.log(error)
 	}
 
-	shouldComponentUpdate(nextProps, nextStates) {
-		// if(this.state.currentTime && nextStates.currentTime === this.state.currentTime) return false
-		return true
-	}
-
-
 	reset() {
 		//TODO
 		this.pause()
 	}
 
 	getAudioIndex(audioUrl, podcasts) {
-		return getIndexWithKeyValue(podcasts||this.props.podcasts, 'audioUrl', audioUrl)
+		return getIndexWithKeyValue(podcasts || this.props.podcasts, 'audioUrl', audioUrl)
 	}
 
 	setAudioIndexState(newIndex) {
@@ -44,18 +39,28 @@ export class Audio extends Component {
 	}
 
 	componentWillUpdate(nextProps, nextStates) {
-		if (nextProps.audioUrl !== this.props.audioUrl) {
-			const {audioUrl, podcasts : newPodcasts}  = nextProps
-			this.setState({ audioUrl: nextProps.audioUrl })
-			this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl, newPodcasts))
+
+		try {
+			if (nextProps.audioUrl !== this.props.audioUrl) {
+				const {audioUrl, podcasts: newPodcasts} = nextProps
+				this.setState({ audioUrl: nextProps.audioUrl })
+				this.setAudioIndexState(this.getAudioIndex(nextProps.audioUrl, newPodcasts))
+			}
+		} catch (e) {
+			alert(e)
 		}
+
 	}
 
 
 	componentDidMount() {
-		const {audioUrl} = this.props
-		this.setAudioIndexState(this.getAudioIndex(audioUrl))
-		this.setState({ audioUrl })
+		try {
+			const {audioUrl} = this.props
+			this.setAudioIndexState(this.getAudioIndex(audioUrl))
+			this.setState({ audioUrl })
+		} catch (e) {
+			alert(e)
+		}
 	}
 
 
@@ -122,74 +127,85 @@ export class Audio extends Component {
 
 
 	childrenProps() {
-		const self = this
-			, {slider, playPause, audio, streaming} = styles
-			, {duration, currentTime, isPlaying, audioIndex} = this.state
-			, podcast = !isNaN(audioIndex) ? this.props.podcasts[audioIndex] : {}
-			, {	description = '', date = '', columnTitle = ''} = podcast
 
-		return {
-			audioProps: {
-				style: audio
-			},
+		try {
 
-			timeFlowProps: {
-				sliderProps: {
-					style: slider,
-					minimumValue: 0,
-					maximumValue: duration,
-					value: currentTime,
-					onSlidingComplete: self.onSlidingComplete.bind(self)
+			const self = this
+				, {slider, playPause, audio, streaming} = styles
+				, {duration, currentTime, isPlaying, audioIndex} = this.state
+				, podcast = !isNaN(audioIndex) ? (this.props.podcasts[audioIndex] || {}) : {}
+				, {	description = '', date = '', columnTitle = ''} = podcast
+
+
+
+			return {
+				audioProps: {
+					style: audio
 				},
-				timeProps: {
-					duration,
-					currentTime
-				},
-			},
 
-			podcastDetails: {
-				description,
-				date,
-				columnTitle
-			},
-
-
-			audioFlowControlProps: {
-				playPauseProps: {
-					style: playPause,
-					isPlaying,
-					onPress: self.togglePlayPause.bind(self)
-				},
-				podcastControlProps: {
-					nextProps: {
-						type: 'next',
-						action: self.next.bind(this)
+				timeFlowProps: {
+					sliderProps: {
+						style: slider,
+						minimumValue: 0,
+						maximumValue: duration,
+						value: currentTime,
+						onSlidingComplete: self.onSlidingComplete.bind(self)
 					},
-					backProps: {
-						type: 'back',
-						action: self.back.bind(this)
+					timeProps: {
+						duration,
+						currentTime
+					},
+				},
+
+				podcastDetails: {
+					description,
+					date,
+					columnTitle
+				},
+
+
+				audioFlowControlProps: {
+					playPauseProps: {
+						style: playPause,
+						isPlaying,
+						onPress: self.togglePlayPause.bind(self)
+					},
+					podcastControlProps: {
+						nextProps: {
+							type: 'next',
+							action: self.next.bind(this)
+						},
+						backProps: {
+							type: 'back',
+							action: self.back.bind(this)
+						}
+					}
+				},
+
+				streamingProps: {
+					ref: ref => self.player = ref,
+					style: streaming,
+					source: { uri: self.state.audioUrl },
+					volume: 1.0,
+					rate: 1.0,
+					paused: !isPlaying,
+					repeat: false,
+					playInBackground: true,
+					onError: self.onError.bind(self),
+					onLoad: self.startAudio.bind(self),
+					onProgress: self.onProgress.bind(self),
+					onEnd: () => {
+						self.reset()
+						self.next()
 					}
 				}
-			},
-
-			streamingProps: {
-				ref: ref => self.player = ref,
-				style: streaming,
-				source: { uri: self.state.audioUrl },
-				volume: 1.0,
-				rate: 1.0,
-				paused: !isPlaying,
-				repeat: false,
-				playInBackground: true,
-				onError: self.onError.bind(self),
-				onLoad: self.startAudio.bind(self),
-				onProgress: self.onProgress.bind(self),
-				onEnd: () => {					
-					self.reset()
-					self.next()
-				}
 			}
+
+		} catch (e) {
+			alert(e)
 		}
+
+
 	}
 
 	noAudio() {
@@ -205,14 +221,20 @@ export class Audio extends Component {
 				<View style={stretch}>
 					<TimeFlow {...timeFlowProps} />
 					<AudioFlowControl {...audioFlowControlProps} />
-					<Streaming {...streamingProps} />
 				</View>
 			</View>
 		)
+					// <Streaming {...streamingProps} />
 	}
 
 	render() {
-		return !this.props.audioUrl ? this.noAudio() : this.audioController()
+		try {
+			const component = !this.props.audioUrl ? this.noAudio() : this.audioController()
+			return component
+		} catch (e) {
+			alert(e)
+		}
+
 	}
 }
 

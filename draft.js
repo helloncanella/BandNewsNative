@@ -9,6 +9,7 @@ import { grid, color, typography, pressStyle } from 'styles/global.js'
 
 export class Audio extends Component {
 	constructor() {
+
 		super()
 		this.state = {
 			isPlaying: false,
@@ -132,8 +133,8 @@ export class Audio extends Component {
 			const self = this
 				, {slider, playPause, audio, streaming} = styles
 				, {duration, currentTime, isPlaying, audioIndex} = this.state
-			, podcast = !isNaN(audioIndex) ? (this.props.podcasts[audioIndex] || {}) : {}
-			, {	description = '', date = '', columnTitle = ''} = podcast
+				, podcast = !isNaN(audioIndex) ? (this.props.podcasts[audioIndex] || {}) : {}
+				, {	description = '', date = '', columnTitle = ''} = podcast
 
 
 
@@ -220,19 +221,19 @@ export class Audio extends Component {
 				<View style={stretch}>
 					<TimeFlow {...timeFlowProps} />
 					<AudioFlowControl {...audioFlowControlProps} />
-					<Streaming {...streamingProps} />
 				</View>
 			</View>
 		)
+					// <Streaming {...streamingProps} />
 	}
 
 	render() {
 		try {
+			const component = !this.props.audioUrl ? this.noAudio() : this.audioController()
+			return component
 		} catch (e) {
 			alert(e)
 		}
-			const component = !this.props.audioUrl ? this.noAudio() : this.audioController()
-			return component
 
 	}
 }

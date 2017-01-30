@@ -1,11 +1,9 @@
 import moment, * as moments from 'moment';
 import 'moment/locale/pt-br';
+moment.locale('pt-BR');
 
-export default class TimeFormater {
-    constructor(){        
-        moment.locale('pt-BR');
-    }
-    
+
+export default class TimeFormater {   
     convert(time){
         const hours = this.pad(Math.floor(time/3600))
             , restSeconds = time%3600

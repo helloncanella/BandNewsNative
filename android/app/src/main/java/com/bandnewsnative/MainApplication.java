@@ -1,4 +1,4 @@
-package com.bandnewsnative;
+package com.bnewsnative;
 
 import android.app.Application;
 import android.util.Log;

@@ -1,4 +1,4 @@
-package com.bandnewsnative;
+package com.bnewsnative;
 
 import com.facebook.react.ReactActivity;
 
